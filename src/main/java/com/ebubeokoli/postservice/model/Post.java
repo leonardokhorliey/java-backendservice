@@ -1,12 +1,5 @@
 package com.ebubeokoli.postservice.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,8 +13,6 @@ import com.ebubeokoli.postservice.helpers.JsonToClass;
 
 import lombok.EqualsAndHashCode;
 
-@Entity
-@Table(name="posts")
 @EqualsAndHashCode
 public class Post {
 
@@ -29,17 +20,12 @@ public class Post {
     
     private final static String dbPath = env.getProperty("postDbPath");
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long id;
 
-    @Column(name = "heading", nullable = false)
     private String heading;
 
-    @Column(name = "content", nullable = false)
      private String content;
-    
-    @Column(name = "userId", nullable = false)
+
      private Long userId;
     
 	public Post(Long id, String heading, String content, Long userId) {

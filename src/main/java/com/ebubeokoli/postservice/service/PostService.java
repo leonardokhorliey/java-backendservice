@@ -71,7 +71,7 @@ public class PostService {
             JSONObject obj = new JSONObject(postStr);
 
             if (obj.getString("userId").equals(userId.toString())) {
-                if (pageSizeCounter < pageSize && recordCounter > page*pageSize) {
+                if (pageSizeCounter < pageSize && recordCounter >= page*pageSize) {
                     Post post = Post.fromJsonObject(obj);
                     postList.add(post);
                     pageSizeCounter++;

@@ -1,0 +1,4 @@
+User {"id": "3", "email":"jack@quaid.com", "password":"$2a$10$nPKBg27EGZgi89bHNst63uIYVTW8zowgHQH76S6ozo9zdf9QBZgBe", "username":"amjack"};
+User {"id": "4", "email":"jack@quaid.com", "password":"$2a$10$W28XHNCLcGxF9w3lbq9S2eXQllqAvw5PHsLK1iYNgbyD/IEYPVLl.", "username":"amjack"};
+User {"id": "5", "email":"jack@quaid.com", "password":"$2a$10$sj0T5VeyQ1pCvc3qtwMLe.PvH97u5BvKDpwCBK3l/S79emaYeufoO", "username":"amjack"};
+User {"id": "6", "email":"jack@qua.com", "password":"$2a$10$lpVXbYCSRdTUWaKfKfZ3C.NevxsGOi36yPYO.2xTW6a2DPef4VAoe", "username":"amjac"};

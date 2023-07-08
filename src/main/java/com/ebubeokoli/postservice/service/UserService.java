@@ -28,16 +28,21 @@ public class UserService {
         int pageSize = pageable.getPageSize();
         int page = pageable.getPageNumber();
 
-        String[] expectedUsers = Arrays.copyOfRange(allUsers, page * pageSize, page * pageSize + pageSize - 1);
-
-        for (String userString: expectedUsers) {
-            userString = userString.replaceFirst("User ", "");
-            
-            User user = User.fromJsonString(userString);
-
-            if (user != null) {
-                userList.add(user);
+        int recordCounter = 0;
+        int pageSizeCounter = 0;
+        System.out.println(allUsers[0]);
+        for (String userString : allUsers) {
+            if (recordCounter >= page*pageSize && pageSizeCounter < pageSize) {
+                userString = userString.replaceFirst("User ", "");
+                System.out.println(userString);
+                User user = User.fromJsonString(userString);
+                System.out.println(user);
+                if (user != null) {
+                    userList.add(user);
+                }
+                pageSizeCounter++;
             }
+            recordCounter += 1;
         }
 
         return new PageImpl<User>(userList, pageable, allUsers.length);
@@ -53,11 +58,28 @@ public class UserService {
             userString = userString.replaceFirst("User ", "");
             JSONObject obj = new JSONObject(userString);
 
-            if (obj.getString("id") == userId.toString() || obj.getString("email") == email) 
+            if (obj.getString("email").equals(email) || (userId != null && obj.getString("id").equals(userId.toString()))) 
             return Optional.of(User.fromJsonString(userString));
         }
 
-        return null;
+        return Optional.empty();
+    }
+
+    public Optional<User> getUserByUserName(String username) throws IOException {
+
+        String userData = User.database();
+
+        String[] allUsers = userData.split(";\n");
+
+        for (String userString: allUsers) {
+            userString = userString.replaceFirst("User ", "");
+            JSONObject obj = new JSONObject(userString);
+
+            if (obj.getString("username").equals(username)) 
+            return Optional.of(User.fromJsonString(userString));
+        }
+
+        return Optional.empty();
     }
 
     public User createUser(String email, String username, String password) throws JSONException, NumberFormatException, IOException {
@@ -71,7 +93,9 @@ public class UserService {
         JSONObject obj = new JSONObject(lastUser);
         Long lastId = Long.parseLong(obj.getString("id"));
         Long newUserId = lastId + 1;
-        User user = new User(newUserId, email, password, username);
+        User user = new User(newUserId, email, username);
+
+        user.setPassword(password);
 
         user.save();
 
