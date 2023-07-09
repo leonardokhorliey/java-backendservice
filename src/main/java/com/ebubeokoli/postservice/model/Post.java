@@ -1,32 +1,25 @@
 package com.ebubeokoli.postservice.model;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
-import org.hibernate.annotations.Type;
 import org.json.JSONObject;
-import org.springframework.core.env.Environment;
 
 import com.ebubeokoli.postservice.helpers.JsonToClass;
 
-import lombok.EqualsAndHashCode;
-
-@EqualsAndHashCode
 public class Post {
-
-    private static Environment env;
     
-    private final static String dbPath = env.getProperty("postDbPath");
+    final static String dbPath = "/Users/ikponmwosaomorisiagbon/Desktop/CodeWorks/Java/postservice/src/main/resources/db/posts.txt";
     
-     private Long id;
+    private Long id;
 
     private String heading;
 
-     private String content;
+    private String content;
 
-     private Long userId;
+    private Long userId;
     
 	public Post(Long id, String heading, String content, Long userId) {
         this.id = id;
@@ -40,10 +33,6 @@ public class Post {
 
     public Long getId() {
         return this.id;
-    }
-    
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getHeading() {
@@ -77,18 +66,18 @@ public class Post {
 
         String[] nullables = {};
 
-        Post user;
+        Post post = null;
 
         if (JsonToClass.convertJsonToClass(obj, Post.class, nullables)) {
 
-            user = new Post(Long.parseLong(obj.getString("id"))
+            post = new Post(Long.parseLong(obj.getString("id"))
             , obj.getString("heading")
             , obj.getString("content")
             , Long.parseLong(obj.getString("userId"))
             );
         }
 
-        return user;
+        return post;
     }
 
     public static String database() throws IOException {
@@ -100,12 +89,31 @@ public class Post {
     }
 
     public boolean save() throws IOException {
-        FileWriter writer = new FileWriter(dbPath);
-
         String post = this.toString() + ";\n";
 
-        writer.append(post);
-        writer.close();
+        Files.writeString(
+            Path.of(dbPath),
+            post,
+            Files.exists(Path.of(dbPath)) ? StandardOpenOption.APPEND : StandardOpenOption.CREATE
+        );
+        return true;
+    }
+
+    public boolean update(Post newVersion) throws IOException {
+        String post = this.toString();
+
+        String newVersion_ = newVersion.toString();
+
+        String db = Post.database().replace(post, newVersion_);
+        // .replaceAll(post, newVersion_);
+
+        Files.writeString(
+            Path.of(dbPath),
+            db,
+            StandardOpenOption.WRITE
+        );
+
+        return true;
     }
 
 }

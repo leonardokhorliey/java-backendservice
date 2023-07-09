@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +23,6 @@ import com.ebubeokoli.postservice.model.Response;
 import com.ebubeokoli.postservice.model.User;
 import com.ebubeokoli.postservice.service.UserService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
@@ -66,6 +64,7 @@ public class UserController {
 		    Page<User> users = this.userService.getAllUsers(pageable);
             System.out.println(users);
             userList = users.getContent();
+            isSuccess = true;
             response.setStatus(200);
 
         } catch (Exception e) {

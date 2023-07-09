@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 public class JsonToClass<T> {
     
-    public static boolean convertJsonToClass(JSONObject json, Class classToConvert, String[] nullableFields) {
+    public static boolean convertJsonToClass(JSONObject json, Class<?> classToConvert, String[] nullableFields) {
 
         Field[] fields = classToConvert.getDeclaredFields();
         

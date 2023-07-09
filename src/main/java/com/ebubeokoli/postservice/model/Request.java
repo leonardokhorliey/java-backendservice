@@ -12,4 +12,10 @@ public class Request {
     public String password;
 
     public String username;
+
+    public String heading;
+
+    public String content;
+
+    public Long userId;
 }

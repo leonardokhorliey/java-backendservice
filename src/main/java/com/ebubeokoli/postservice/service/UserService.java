@@ -1,7 +1,6 @@
 package com.ebubeokoli.postservice.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 import java.io.IOException;
 
@@ -30,7 +29,6 @@ public class UserService {
 
         int recordCounter = 0;
         int pageSizeCounter = 0;
-        System.out.println(allUsers[0]);
         for (String userString : allUsers) {
             if (recordCounter >= page*pageSize && pageSizeCounter < pageSize) {
                 userString = userString.replaceFirst("User ", "");

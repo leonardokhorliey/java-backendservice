@@ -1,32 +1,21 @@
 package com.ebubeokoli.postservice.model;
 // Generated May 28, 2015 9:05:46 AM by Hibernate Tools 3.1.0.beta4
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-
-import org.hibernate.annotations.Type;
 
 
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.core.env.Environment;
-import org.springframework.core.env.StandardEnvironment;
 
 import com.ebubeokoli.postservice.helpers.JsonToClass;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 
 public class User {
-    
-    private static Environment env = new StandardEnvironment();
 
     final static String dbPath = "/Users/ikponmwosaomorisiagbon/Desktop/CodeWorks/Java/postservice/src/main/resources/db/users.txt";
 
